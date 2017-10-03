@@ -2,7 +2,9 @@ package com.baidu.langshiquan.service.impl;
 
 import com.baidu.langshiquan.dao.AccountDao;
 import com.baidu.langshiquan.service.AccountService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
