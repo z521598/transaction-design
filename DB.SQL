@@ -1,0 +1,9 @@
+CREATE TABLE `account` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(21) NOT NULL,
+	`money` DOUBLE DEFAULT NULL,
+	 PRIMARY KEY(`id`)
+);
+INSERT INTO `account` VALUES (1,'lsq',1000.0);
+INSERT INTO `account` VALUES (2,'zdh',1000.0);
+INSERT INTO `account` VALUES (3,'cc',1000.0);
