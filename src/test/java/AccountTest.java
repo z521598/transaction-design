@@ -21,6 +21,7 @@ public class AccountTest {
     @Autowired
     private ApplicationContext applicationContext;
 
+    // jsr规范
     @Resource(name = "accountServiceImpl")
     private AccountService accountService;
 
