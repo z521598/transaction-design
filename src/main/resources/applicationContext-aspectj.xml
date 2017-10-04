@@ -19,7 +19,7 @@
     http://www.springframework.org/schema/aop/spring-aop.xsd  
     http://www.springframework.org/schema/util  
     http://www.springframework.org/schema/util/spring-util.xsd" default-autowire="byType">
-    <context:component-scan base-package="com.baidu.langshiquan.proxy"/>
+    <context:component-scan base-package="com.baidu.langshiquan.aspectj"/>
     <context:property-placeholder location="classpath:jdbc.properties"/>
     <!--业务依赖:纯xml手动配置bean-->
     <!--<bean id="accountDaoImpl" class="com.baidu.langshiquan.template.dao.impl.AccountDaoImpl">-->
@@ -51,29 +51,4 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <!--注入代理类-->
-    <bean id="transactionProxyFactoryBean"
-          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" autowire="no">
-        <!--目标类-->
-        <property name="target" ref="accountService2Impl"/>
-        <!--事务管理器-->
-        <property name="transactionManager" ref="dataSourceTransactionManager"/>
-        <!--注入事务属性-->
-        <property name="transactionAttributes">
-            <props>
-                <!--
-                prop key格式：
-                    表示方法的匹配格式
-                    支持表达式
-                prop 值格式：
-                    PROPAGATION:传播行为
-                    ISOLATION: 隔离级别
-                    readonly： 只读(不可以进行修改，删除操作)
-                    -Exception： 发生哪些行为回滚[默认都回滚]
-                    +Exception： 发生哪些行为不回滚
-                -->
-                <prop key="*">PROPAGATION_REQUIRED,+ArithmeticException</prop>
-            </props>
-        </property>
-    </bean>
 </beans>  
