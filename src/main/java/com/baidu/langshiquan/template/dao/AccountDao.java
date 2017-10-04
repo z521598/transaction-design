@@ -1,4 +1,4 @@
-package com.baidu.langshiquan.dao;
+package com.baidu.langshiquan.template.dao;
 
 /**
  * Created by Administrator on 2017/10/3.

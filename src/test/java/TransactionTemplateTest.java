@@ -1,16 +1,12 @@
-import com.baidu.langshiquan.service.AccountService;
+import com.baidu.langshiquan.template.service.AccountService;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallbackWithoutResult;
-import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.Resource;
 
@@ -19,7 +15,7 @@ import javax.annotation.Resource;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")
-public class AccountTest {
+public class TransactionTemplateTest {
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -28,9 +24,6 @@ public class AccountTest {
     @Resource(name = "accountServiceImpl")
     private AccountService accountService;
 
-    // 注入事务管理的模板
-    @Autowired
-    private TransactionTemplate transactionTemplate;
 
 
     @Test
@@ -58,15 +51,10 @@ public class AccountTest {
 
     @Test
     public void testTranscationTemplate() {
-        transactionTemplate.execute(new TransactionCallbackWithoutResult() {
-            @Override
-            protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
                 String in = "lsq";
                 String out = "zdh";
                 Double money = 30.0;
                 accountService.transfer(in, out, money);
-            }
-        });
 
     }
 

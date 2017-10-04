@@ -1,4 +1,4 @@
-package com.baidu.langshiquan.service;
+package com.baidu.langshiquan.template.service;
 
 /**
  * Created by Administrator on 2017/10/3.
