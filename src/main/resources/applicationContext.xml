@@ -29,7 +29,6 @@
     <!--<property name="accountDao" ref="accountDaoImpl"/>-->
     <!--</bean>-->
 
-
     <!--c3p0数据源-->
     <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!血和泪的教训!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
     <!-- autowire="no" 第三方提供的类库（框架），自动装配，可能会导致问题，建议不使用自动装配-->
@@ -46,4 +45,14 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
+    <!--配置事务管理器-->
+    <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--注入数据源-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--简化事务管理的模板类-->
+    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <!--注入事务管理器-->
+        <property name="transactionManager" ref="dataSourceTransactionManager"/>
+    </bean>
 </beans>  

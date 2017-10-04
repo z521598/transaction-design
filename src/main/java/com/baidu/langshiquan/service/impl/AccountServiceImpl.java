@@ -19,6 +19,8 @@ public class AccountServiceImpl implements AccountService {
 
     public void transfer(String in, String out, Double money) {
         accountDao.inMoney(in, money);
+        // 模拟异常
+        int i = 5 / 0;
         accountDao.outMoney(out, money);
     }
 }

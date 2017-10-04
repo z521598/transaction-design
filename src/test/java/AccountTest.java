@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.Resource;
 
@@ -24,6 +27,11 @@ public class AccountTest {
     // jsr规范
     @Resource(name = "accountServiceImpl")
     private AccountService accountService;
+
+    // 注入事务管理的模板
+    @Autowired
+    private TransactionTemplate transactionTemplate;
+
 
     @Test
     public void testAccount() {
@@ -47,5 +55,20 @@ public class AccountTest {
         System.out.println(c3p0.getJdbcUrl());
         System.out.println(c3p0.getDriverClass());
     }
+
+    @Test
+    public void testTranscationTemplate() {
+        transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+            @Override
+            protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
+                String in = "lsq";
+                String out = "zdh";
+                Double money = 30.0;
+                accountService.transfer(in, out, money);
+            }
+        });
+
+    }
+
 
 }
