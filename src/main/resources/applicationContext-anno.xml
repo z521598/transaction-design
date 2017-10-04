@@ -19,7 +19,7 @@
     http://www.springframework.org/schema/aop/spring-aop.xsd  
     http://www.springframework.org/schema/util  
     http://www.springframework.org/schema/util/spring-util.xsd" default-autowire="byType">
-    <context:component-scan base-package="com.baidu.langshiquan.aspectj"/>
+    <context:component-scan base-package="com.baidu.langshiquan.anno"/>
     <context:property-placeholder location="classpath:jdbc.properties"/>
     <!--业务依赖:纯xml手动配置bean-->
     <!--<bean id="accountDaoImpl" class="com.baidu.langshiquan.template.dao.impl.AccountDaoImpl">-->
@@ -51,27 +51,4 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <!--配置事务的通知-->
-    <tx:advice id="txAdvice" transaction-manager="dataSourceTransactionManager">
-        <tx:attributes>
-            <!--
-            propagation:传播行为
-            isolation：隔离级别
-            read-only: 只读
-            no-rollback-for：发生哪些异常不回滚
-            rollback-for：发生哪些异常回滚
-            timeout：超时信息
-            -->
-            <tx:method name="transfer"/>
-        </tx:attributes>
-    </tx:advice>
-
-    <!--配置切面-->
-    <aop:config>
-        <!--配置切入点-->
-        <aop:pointcut id="txPointcut"
-                      expression="execution(* com.baidu.langshiquan.aspectj.service.AccountService+.*(..))"/>
-        <!--配置切面-->
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
-    </aop:config>
 </beans>  

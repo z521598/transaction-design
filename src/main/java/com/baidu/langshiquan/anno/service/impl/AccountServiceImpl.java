@@ -1,12 +1,9 @@
-package com.baidu.langshiquan.aspectj.service.impl;
+package com.baidu.langshiquan.anno.service.impl;
 
-import com.baidu.langshiquan.aspectj.dao.AccountDao;
-import com.baidu.langshiquan.aspectj.service.AccountService;
+import com.baidu.langshiquan.anno.dao.AccountDao;
+import com.baidu.langshiquan.anno.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallbackWithoutResult;
-import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * Created by Administrator on 2017/10/3.
@@ -22,7 +19,7 @@ public class AccountServiceImpl implements AccountService {
 
         accountDao.inMoney(in, money);
         // 模拟异常
-        int i = 5 / 0;
+//        int i = 5 / 0;
         accountDao.outMoney(out, money);
 
     }
