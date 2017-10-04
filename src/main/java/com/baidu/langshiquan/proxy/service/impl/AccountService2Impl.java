@@ -1,7 +1,7 @@
-package com.baidu.langshiquan.anno.service.impl;
+package com.baidu.langshiquan.proxy.service.impl;
 
-import com.baidu.langshiquan.anno.dao.AccountDao2;
-import com.baidu.langshiquan.anno.service.AccountService2;
+import com.baidu.langshiquan.proxy.dao.AccountDao2;
+import com.baidu.langshiquan.proxy.service.AccountService2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

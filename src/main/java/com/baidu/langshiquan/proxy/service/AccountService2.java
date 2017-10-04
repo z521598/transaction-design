@@ -1,4 +1,4 @@
-package com.baidu.langshiquan.anno.service;
+package com.baidu.langshiquan.proxy.service;
 
 /**
  * Created by Administrator on 2017/10/3.

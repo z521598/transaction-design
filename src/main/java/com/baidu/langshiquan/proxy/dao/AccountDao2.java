@@ -1,4 +1,4 @@
-package com.baidu.langshiquan.anno.dao;
+package com.baidu.langshiquan.proxy.dao;
 
 /**
  * Created by Administrator on 2017/10/3.

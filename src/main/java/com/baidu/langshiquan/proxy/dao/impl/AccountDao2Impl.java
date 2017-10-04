@@ -1,6 +1,6 @@
-package com.baidu.langshiquan.anno.dao.impl;
+package com.baidu.langshiquan.proxy.dao.impl;
 
-import com.baidu.langshiquan.anno.dao.AccountDao2;
+import com.baidu.langshiquan.proxy.dao.AccountDao2;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 

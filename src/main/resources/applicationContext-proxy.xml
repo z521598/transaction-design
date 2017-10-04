@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="  
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context.xsd  
+    http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans.xsd  
+    http://www.springframework.org/schema/tx  
+    http://www.springframework.org/schema/tx/spring-tx.xsd  
+    http://www.springframework.org/schema/jdbc  
+    http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd  
+    http://www.springframework.org/schema/cache  
+    http://www.springframework.org/schema/cache/spring-cache-3.1.xsd  
+    http://www.springframework.org/schema/aop  
+    http://www.springframework.org/schema/aop/spring-aop.xsd  
+    http://www.springframework.org/schema/util  
+    http://www.springframework.org/schema/util/spring-util.xsd" default-autowire="byType">
+    <context:component-scan base-package="com.baidu.langshiquan.proxy"/>
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!--业务依赖:纯xml手动配置bean-->
+    <!--<bean id="accountDaoImpl" class="com.baidu.langshiquan.template.dao.impl.AccountDaoImpl">-->
+    <!--<property name="jdbcTemplate" ref="jdbcTemplate"/>-->
+    <!--</bean>-->
+    <!--<bean id="accountServiceImpl" class="com.baidu.langshiquan.template.service.impl.AccountServiceImpl">-->
+    <!--<property name="accountDao" ref="accountDaoImpl"/>-->
+    <!--</bean>-->
+
+    <!--c3p0数据源-->
+    <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!血和泪的教训!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+    <!-- autowire="no" 第三方提供的类库（框架），自动装配，可能会导致问题，建议不使用自动装配-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" autowire="no">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <!--为jdncTemplate配置数据源-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--配置事务管理器-->
+    <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--注入数据源-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--注入代理类-->
+    <bean id="transactionProxyFactoryBean"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" autowire="no">
+        <!--目标类-->
+        <property name="target" ref="accountService2Impl"/>
+        <!--事务管理器-->
+        <property name="transactionManager" ref="dataSourceTransactionManager"/>
+        <!--注入事务属性-->
+        <property name="transactionAttributes">
+            <props>
+                <!--
+                prop key格式：
+                    表示方法的匹配格式
+                    支持表达式
+                prop 值格式：
+                    PROPAGATION:传播行为
+                    ISOLATION: 隔离级别
+                    readonly： 只读(不可以进行修改，删除操作)
+                    -Exception： 发生哪些行为回滚[默认都回滚]
+                    +Exception： 发生哪些行为不回滚
+                -->
+                <prop key="*">PROPAGATION_REQUIRED,+ArithmeticException</prop>
+            </props>
+        </property>
+    </bean>
+</beans>  
