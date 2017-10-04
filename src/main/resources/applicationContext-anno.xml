@@ -50,5 +50,6 @@
         <!--注入数据源-->
         <property name="dataSource" ref="dataSource"/>
     </bean>
-
+    <!--打开注解驱动-->
+    <tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>
 </beans>  
